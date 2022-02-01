@@ -1,7 +1,9 @@
 /* eslint-disable prettier/prettier */
-import { IsString, IsEmail, IsNotEmpty, MinLength } from 'class-validator';
+import { IsString, IsEmail, IsNotEmpty, IsDate } from 'class-validator';
 
-export class CreateUserDto {
+export class UsersDto {
+  id: string;
+  
   @IsString()
   @IsNotEmpty()
   name: string;
@@ -19,13 +21,11 @@ export class CreateUserDto {
   @IsNotEmpty()
   email: string;
 
-  @IsString()
+  @IsDate()
   @IsNotEmpty()
-  @MinLength(6, {message: 'Senha menor que 6 caracteres'})
-  password: string;
+  createdAt: Date;
 
-  @IsString()
+  @IsDate()
   @IsNotEmpty()
-  @MinLength(6)
-  passwordConfirmation: string;
+  updatedAt: Date;
 }
