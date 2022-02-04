@@ -17,6 +17,35 @@ model User {
   passwordConfirmation String
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
+  menus                Menu[]
+  mesas                Mesa[]
 
   @@map("user")
+}
+
+model Menu {
+  id          String @id @default(uuid())
+  name        String
+  price       Float
+  description String
+  imageUrl    String
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
+
+  mesas Mesa[]
+
+  @@map("menu")
+}
+
+model Mesa {
+  id     String   @id @default(uuid())
+  table  Int
+  places Int
+  start  DateTime
+  end    DateTime
+  User   User?    @relation(fields: [userId], references: [id])
+  userId String?
+  Menu   Menu?    @relation(fields: [menuId], references: [id])
+  menuId String?
 }
